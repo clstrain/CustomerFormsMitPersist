@@ -64,7 +64,7 @@
                         </property>
                     </systemProperties>
                     <argLine>-XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -Xss128k 
-                        -Xms256m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=512m</argLine>
+                        -Xms512m -Xmx512m -XX:PermSize=512m -XX:MaxPermSize=512m</argLine>
                 </configuration>
             </plugin>
         </plugins>

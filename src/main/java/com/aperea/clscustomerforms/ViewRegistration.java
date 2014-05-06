@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -30,13 +30,12 @@ import org.primefaces.event.RowEditEvent;
  * @author Armando
  */
 @ManagedBean(name="viewRegistration")
-@SessionScoped
+@ViewScoped
 public class ViewRegistration implements Serializable {
 
     private Requestor requestor = new Requestor();
-
-    private Boolean blankStudentAdded = false;
-  
+ 
+    private Student newStudent = new Student();
     
     private RegistrationDAO registrationDAO = new RegistrationDAO();
     
@@ -50,21 +49,19 @@ public class ViewRegistration implements Serializable {
 
         registrationDAO.Add(requestor);
         
-        sendOutEmail();
+        //sendOutEmail();
         
         //reset all variables in case user doing again since this is session scoped :P
         requestor = new Requestor();
         registrationDAO = new RegistrationDAO();
         this.requestor.getRegistration().setRegistrationDate(getCurrentDate());
-        blankStudentAdded = false;
         
     }
 
-    public void addStudent() {
-        if (!blankStudentAdded) {
-            requestor.getRegistration().getStudents().add(new Student());
-        }
-        blankStudentAdded = true;
+    public void addStudent() {   
+        
+            requestor.getRegistration().getStudents().add(this.newStudent);
+        this.newStudent = new Student();
     }
 
     public Requestor getRequestor() {
@@ -80,6 +77,14 @@ public class ViewRegistration implements Serializable {
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         return date;
+    }
+
+    public Student getNewStudent() {
+        return newStudent;
+    }
+
+    public void setNewStudent(Student newStudent) {
+        this.newStudent = newStudent;
     }
     
     //wizard stuff
@@ -110,14 +115,13 @@ public class ViewRegistration implements Serializable {
     
     //student list edit row methods
     public void onEdit(RowEditEvent event) {
-        blankStudentAdded = false;
         FacesMessage msg = new FacesMessage("Student Edited", ((Student) event.getObject()).getLastName());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Student Cancelled", ((Student) event.getObject()).getLastName());
+        FacesMessage msg = new FacesMessage("Student Editing Cancelled", ((Student) event.getObject()).getLastName());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -146,7 +150,7 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
            // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("techtng@ciena.com"));
+                    InternetAddress.parse("aleoperea@yahoo.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName()+" Course Registration on "+this.getRequestor().getRegistration().getCourseDate());
             message.setText("This is an automated email."
                     +"\n\n Ciena Course Dedicated Registration information follows:"

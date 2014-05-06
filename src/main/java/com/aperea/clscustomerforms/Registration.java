@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -34,7 +35,7 @@ public class Registration implements Serializable {
     @OneToOne(mappedBy = "registration",cascade=CascadeType.ALL)
     private Requestor requestor;
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<Student> students;
     
     private boolean isTrainingSite;
@@ -118,7 +119,7 @@ public class Registration implements Serializable {
 
     public List<Student> getStudents() {
         if (students==null){
-            students= new ArrayList<Student>();
+            students= new ArrayList<>();
         }
         return students;
     }

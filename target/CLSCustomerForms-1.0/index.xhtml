@@ -21,7 +21,7 @@
             <div id="header">
                 <img src="gfx/Learning_Solutions_II.jpg" align ="left" alt="Ciena Learning Solutions"/>
                 <img src="gfx/spectrum.png" />
-                <p>Ciena Dedicated Training Registration Form</p>
+                <p>Ciena Training Registration Form</p>
             </div>
 
             <div id="registrationForm">
@@ -32,7 +32,7 @@
 
                     <p:wizard flowListener="#{viewRegistration.onFlowProcess}" id="myWizard">  
 
-                        <p:tab id="personal" title="Requestor Details">
+                        <p:tab id="personal" title="Primary Information">
 
 
 
@@ -45,7 +45,6 @@
                                         <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
                                     </h:outputText>
                                 </p:panelGrid>
-
 
                                 <p:panelGrid>
                                     <p:row>
@@ -172,7 +171,7 @@
 
                                 </p:panelGrid> 
 <p:message for="CienaTrainingSite"/>
-
+<!--
                                 <p:panelGrid columns="2" >  
 
                                     <h:outputText value="Ciena Relation:" />  
@@ -197,7 +196,7 @@
 
                                 </p:panelGrid>  
 <p:message for="CourseType"/>
-
+-->
                                 <p:panelGrid>  
                                     <p:row>
                                         <p:column>
@@ -234,7 +233,7 @@
 
                             <p:panel>
 
-                                <p>Please complete if training is to be held outside a Ciena Learning Center</p>
+                                <h3>Please complete this page only if training is to be held outside a Ciena Learning Center. Otherwise, you may continue by selecting the next button.</h3>
                                 <p:messages id="onsiteMsg"/>
                                 <p:panelGrid columns="2">
                                     <f:facet name="header">Site Address</f:facet>
@@ -355,7 +354,7 @@
 
                                 </p:fieldset>
                                 
-                                <p:panelGrid>
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocFirstName" value="POC First Name: " />
                                     <p:inputText id="pocFirstName" value="#{viewRegistration.requestor.registration.pocFirstName}" required="false">
                                         <p:ajax event="blur" update="pocFirstNameMsg" />
@@ -363,7 +362,7 @@
                                     <p:message id="pocFirstNameMsg" for="pocFirstName"  />
                                 </p:panelGrid>
 
-                                <p:panelGrid>
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocLastName" value="POC Last Name: " />
                                     <p:inputText id="pocLastName" value="#{viewRegistration.requestor.registration.pocLastName}" required="false">
                                         <p:ajax event="blur" update="pocLastNameMsg" />
@@ -371,7 +370,7 @@
                                     <p:message id="pocLastNameMsg" for="pocLastName"  />
                                 </p:panelGrid>
 
-                                <p:panelGrid>
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocEmail" value="POC Email Address: " />
                                     <p:inputText id="pocEmail" value="#{viewRegistration.requestor.registration.pocEmail}" required="false">
                                         <p:ajax event="blur" update="pocEmailMsg" />
@@ -379,7 +378,7 @@
                                     <p:message id="pocEmailMsg" for="pocEmail"  />
                                 </p:panelGrid>
 
-                                <p:panelGrid>
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocPhoneNumber" value="POC Phone Number: " />
                                     <p:inputText id="pocPhoneNumber" value="#{viewRegistration.requestor.registration.pocPhoneNumber}" required="false">
                                         <p:ajax event="blur" update="pocPhoneNumberMsg" />
@@ -431,7 +430,7 @@
                         <p:tab id="studentInfo" title="Student Enrollment Form">
 
                             <p:messages id="messages2" />
-                            <h3>If this is a dedicated course, please enter the information about the students in the form below.</h3>
+                            <h3>If this is a privately held course, please enter the information about the students in the form below. For individual course registration, you may proceed by selecting the next button.</h3>
                             <p>Instructions: Click the "New Student" button, then click the pen icon in the "Edit" column. Enter the student's information, and click the check box to the right to commit the information. Repeat these steps to add additional students. When you are finished, click the next button.</p>
 
 
@@ -496,13 +495,40 @@
                                 </p:column>  
 
                                 <f:facet name="footer">
-                                    <p:commandButton value="New Student" action="#{viewRegistration.addStudent()}" update="@form"/>
+                                    <p:commandButton value="New Student"  
+                                                     icon="ui-icon-circle-plus"   oncomplete="PF('addStudent').show()" style="inherit:none;"/>
                                 </f:facet>
 
-
                             </p:dataTable>  
+                            
+                            <p:dialog id="addStudent" header="Add Student" widgetVar="addStudent" resizable="false"
+                                width="200" showEffect="clip" hideEffect="fold">
+                                
+                                <p:outputLabel>First Name</p:outputLabel>
+                                            <p:inputText value="#{viewRegistration.newStudent.firstName}" style="width:100%"/>  
+                                            
+                                <p:outputLabel>Last Name</p:outputLabel>
 
-                            <p  style="text-align: right;color:red;"><strong>Important! Make sure to click the checkmark in order to save the student</strong></p>
+                                            <p:inputText value="#{viewRegistration.newStudent.lastName}" style="width:100%" label="Last Name"/>  
+
+                                
+                                                                     <p:outputLabel>Phone Number</p:outputLabel>
+
+                                            <p:inputText value="#{viewRegistration.newStudent.phoneNumber}" style="width:100%" label="Phone"/>  
+                                          
+                                
+                                                                      <p:outputLabel>Business Email Address</p:outputLabel>
+
+                                            <p:inputText value="#{viewRegistration.newStudent.email}" style="width:100%" label="Email"/>  
+                                        
+                                
+                                <p:commandButton value="Okay"  action="#{viewRegistration.addStudent()}"
+                                                 icon="ui-icon-check" update="@form"  oncomplete="PF('addStudent').hide()" style="inherit:none;"/>
+
+                            </p:dialog>     
+                            
+                            
+
 
                         </p:tab>
 
@@ -510,18 +536,11 @@
                             <p:panel>
                                 <p:messages id="messages3" />
 
-
-
-
                                 <h:outputLabel for="purchaseOrderNumber" value="Purchase Order Number: " />
                                 <p:inputText id="purchaseOrderNumber" value="#{viewRegistration.requestor.registration.purchaseOrderNumber}" required="false">
                                     <p:ajax event="blur" update="purchaseOrderNumberMsg" />
                                 </p:inputText>
                                 <p:message id="purchaseOrderNumberMsg" for="purchaseOrderNumber"  />
-
-
-
-
 
                                 <h:outputText value="Using Training Credits: " />  
                                 <p:selectBooleanButton value="#{viewRegistration.requestor.registration.isTrainingCredits}" onLabel="Yes" offLabel="No" /> 
