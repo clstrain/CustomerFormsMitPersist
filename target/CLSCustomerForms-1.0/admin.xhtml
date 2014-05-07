@@ -179,10 +179,9 @@
 
                         <p:panelGrid columns="2" > 
                             <h:outputText value="Ciena Training Site: " />  
-                            <p:selectBooleanButton value="#{viewAdminRegistration.requestor.registration.isTrainingSite}" id="CienaTrainingSite"  onLabel="Ciena Site" offLabel="Other Site" requiredMessage="Please tell us if this is a Ciena training site." /> 
-
+                            <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.isTrainingSite}"/>  
+                            <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.isTrainingSite}"/>
                         </p:panelGrid> 
-                        <p:message for="CienaTrainingSite"/>
 <!--
 
                         <p:panelGrid columns="2" >  
@@ -193,7 +192,6 @@
                                 <f:selectItem itemLabel="Customer" itemValue="Customer" />  
                             </p:selectOneButton>  
                         </p:panelGrid>  
-                        <p:message for="CienaRelation"/>
 
 
                         <p:panelGrid columns="2" >  
@@ -207,7 +205,6 @@
                             </p:selectOneButton>  
 
                         </p:panelGrid>  
-                        <p:message for="CourseType"/>
 -->
                         <p:panelGrid>  
                             <p:row>
@@ -230,9 +227,8 @@
 
                         <p:panelGrid columns="2" > 
                             <h:outputLabel for="courseDate" value="Instructor-led Course Date:" />
-                            <p:calendar value="#{viewAdminRegistration.requestor.registration.courseDate}"   requiredMessage="Please enter a Course Date" id="courseDate" effect="slide" /> 
+                            <h:outputText value="#{viewAdminRegistration.requestor.registration.courseDate}"    /> 
                         </p:panelGrid>
-                        <p:message id="courseDateMsg" for="courseDate"  />
 
 
                     </p:panel>
@@ -380,22 +376,23 @@
                         <p:panelGrid columns="2" >  
 
                             <h:outputText value="Do you have a projector? " />  
-                            <p:selectBooleanButton value="#{viewAdminRegistration.requestor.registration.hasProjector}" onLabel="Yes" offLabel="No" /> 
-
+                            <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.hasProjector}"/>  
+                            <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.hasProjector}"/>
                         </p:panelGrid> 
 
                         <p:panelGrid columns="2" >  
 
                             <h:outputText value="Do you have a whiteboard/flipboards? " />  
-                            <p:selectBooleanButton value="#{viewAdminRegistration.requestor.registration.hasWhiteBoards}" onLabel="Yes" offLabel="No" /> 
-
+                            <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.hasWhiteBoards}"/>  
+                            <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.hasWhiteBoards}"/>
                         </p:panelGrid> 
 
                         <p:panelGrid columns="2" >  
 
                             <h:outputText value="Please confirm that the students will have PCs or laptops with admin rights to change the IP address." />  
-                            <p:selectBooleanButton value="#{viewAdminRegistration.requestor.registration.hasLaptops}" onLabel="Yes" offLabel="No" /> 
 
+                            <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.hasLaptops}"/>  
+                            <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.hasLaptops}"/>
                         </p:panelGrid> 
 
                         <p:panelGrid columns="2">
@@ -444,8 +441,8 @@
                         <p:message id="purchaseOrderNumberMsg" for="purchaseOrderNumber"  />
 
                         <h:outputText value="Using Training Credits: " />  
-                        <p:selectBooleanButton value="#{viewAdminRegistration.requestor.registration.isTrainingCredits}" onLabel="Yes" offLabel="No" /> 
-
+                        <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.isTrainingCredits}"/>  
+                        <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.isTrainingCredits}"/>
                         <br/>
 
                         <h:outputLabel for="nonRevNumber" value="Non-Rev Number: " />

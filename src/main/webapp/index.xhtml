@@ -9,7 +9,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
 
     <h:head> 
-        <title>Ciena Dedicated Training Registration Form</title>
+        <title>Ciena Training Registration Form</title>
 
         <link rel="stylesheet" href="style.css" type="text/css"
               media="screen, projection" />
@@ -353,7 +353,7 @@
                                 </p:panelGrid>
 
                                 </p:fieldset>
-                                
+                                <p>Point of contact information (if different than requestor)</p>
                                 <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocFirstName" value="POC First Name: " />
                                     <p:inputText id="pocFirstName" value="#{viewRegistration.requestor.registration.pocFirstName}" required="false">
@@ -386,12 +386,12 @@
                                     <p:message id="pocPhoneNumberMsg" for="pocPhoneNumber"  />
                                 </p:panelGrid>
                                 
-                                
+                               
                                  <p:panelGrid columns="2" >  
 
                                     <h:outputText value="Do you have a projector? " />  
                                     <p:selectBooleanButton value="#{viewRegistration.requestor.registration.hasProjector}" onLabel="Yes" offLabel="No" /> 
-
+ 
                                 </p:panelGrid> 
                                 
                                  <p:panelGrid columns="2" >  

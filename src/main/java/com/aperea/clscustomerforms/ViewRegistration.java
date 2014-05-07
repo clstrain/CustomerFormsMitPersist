@@ -30,16 +30,16 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author Armando
  */
-@ManagedBean(name="viewRegistration")
+@ManagedBean(name = "viewRegistration")
 @ViewScoped
 public class ViewRegistration implements Serializable {
 
     private Requestor requestor = new Requestor();
- 
+
     private Student newStudent = new Student();
-    
+
     private RegistrationDAO registrationDAO = new RegistrationDAO();
-    
+
     public ViewRegistration() {
         requestor = new Requestor();
         registrationDAO = new RegistrationDAO();
@@ -49,16 +49,13 @@ public class ViewRegistration implements Serializable {
     public void submit() {
 
         registrationDAO.Add(requestor);
-        
+
         sendOutEmail();
-        
-        
-        
     }
 
-    public void addStudent() {   
-        
-            requestor.getRegistration().getStudents().add(this.newStudent);
+    public void addStudent() {
+
+        requestor.getRegistration().getStudents().add(this.newStudent);
         this.newStudent = new Student();
     }
 
@@ -69,7 +66,7 @@ public class ViewRegistration implements Serializable {
     public void setRequestor(Requestor requestor) {
         this.requestor = requestor;
     }
-    
+
     private Date getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
         Calendar calendar = Calendar.getInstance();
@@ -84,7 +81,7 @@ public class ViewRegistration implements Serializable {
     public void setNewStudent(Student newStudent) {
         this.newStudent = newStudent;
     }
-    
+
     //wizard stuff
     private boolean skip;
 
@@ -110,7 +107,6 @@ public class ViewRegistration implements Serializable {
         }
     }
 
-    
     //student list edit row methods
     public void onEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Student Edited", ((Student) event.getObject()).getLastName());
@@ -124,9 +120,8 @@ public class ViewRegistration implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    
-    private void sendOutEmail(){
-        
+    private void sendOutEmail() {
+
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -137,63 +132,68 @@ public class ViewRegistration implements Serializable {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("techtrng.course.reg@gmail.com", "dmewualfcajjfxqd");
-            }
-        });
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("techtrng.course.reg@gmail.com", "dmewualfcajjfxqd");
+                    }
+                });
 
         try {
 
             Message message = new MimeMessage(session);
-           // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
+            // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse("techtng@ciena.com"));
-            message.setSubject(this.getRequestor().getRegistration().getCourseName()+" Course Registration on "+this.getRequestor().getRegistration().getCourseDate());
+            message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
             message.setText("This is an automated email."
-                    +"\n\n Ciena Course Dedicated Registration information follows:"
-                    +"\n\n Request Date: "+this.getRequestor().getRegistration().getRegistrationDate()
-                    +"\n Request Name (First, Last): "+this.getRequestor().getFirstName()+" "+this.getRequestor().getLastName()
-                    +"\n Company Name: "+this.getRequestor().getCompany().getCompanyName()
-                    +"\n Requestor Email: "+this.getRequestor().getEmail()
-                    +"\n Company Street1: "+this.getRequestor().getCompany().getCompanyAddress().getStreet1()
-                    +"\n Company Street2: "+this.getRequestor().getCompany().getCompanyAddress().getStreet2()
-                    +"\n Company City: "+this.getRequestor().getCompany().getCompanyAddress().getCity()
-                    +"\n Company State: "+this.getRequestor().getCompany().getCompanyAddress().getMyState()
-                    +"\n Company ZIP: "+this.getRequestor().getCompany().getCompanyAddress().getZip()
-                    +"\n Company Country: "+this.getRequestor().getCompany().getCompanyAddress().getCountry()
-                    +"\n Company Phone: "+this.getRequestor().getCompany().getCompanyPhone()
-                    +"\n Ciena Relation: "+this.getRequestor().getRegistration().getCienaRelation()
-                    +"\n\n Course Information: "
-                    +"\n Course Type: "+this.getRequestor().getRegistration().getCourseType()
-                    +"\n Course Number: "+this.getRequestor().getRegistration().getCourseNumber()
-                    +"\n Course Name: "+this.getRequestor().getRegistration().getCourseName()
-                    +"\n Course Date: "+this.getRequestor().getRegistration().getCourseDate()
-                    +"\n PO Number: "+this.getRequestor().getRegistration().getPurchaseOrderNumber()
-                    +"\n Using Training Credits: "+String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
-                    +"\n Non-Rev Number: "+this.getRequestor().getRegistration().getNonRevNumber()
-                    +"\n Onsite Information: "
-                    +"\n\n Site Address: "
-                    +"\n Site Street1: "+this.getRequestor().getRegistration().getSiteAddress().getStreet1()
-                    +"\n Site Street2: "+this.getRequestor().getRegistration().getSiteAddress().getStreet2()
-                    +"\n Site City: "+this.getRequestor().getRegistration().getSiteAddress().getCity()
-                    +"\n Site State: "+this.getRequestor().getRegistration().getSiteAddress().getMyState()
-                    +"\n Site ZIP: "+this.getRequestor().getRegistration().getSiteAddress().getZip()
-                    +"\n Site Country: "+this.getRequestor().getRegistration().getSiteAddress().getCountry()
-                    +"\n\n Shipping Address: "
-                    +"\n Shipping Street1: "+this.getRequestor().getRegistration().getShippingAddress().getStreet1()
-                    +"\n Shipping Street2: "+this.getRequestor().getRegistration().getShippingAddress().getStreet2()
-                    +"\n Shipping City: "+this.getRequestor().getRegistration().getShippingAddress().getCity()
-                    +"\n Shipping State: "+this.getRequestor().getRegistration().getShippingAddress().getMyState()
-                    +"\n Shipping ZIP: "+this.getRequestor().getRegistration().getShippingAddress().getZip()
-                    +"\n Shipping Country: "+this.getRequestor().getRegistration().getShippingAddress().getCountry()
-                    +"\n\n Equipment Information: "
-                    +"\n Projector: "+String.valueOf(this.getRequestor().getRegistration().isHasProjector())
-                    +"\n Whiteboards: "+String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
-                    +"\n Laptops with Admin for IP: "+String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
-                    +"\n Additional Notes: "+this.getRequestor().getRegistration().getAdditionalNotes()
-                    +"\n\n Student List: "+studentListString()
-                    +"\n\n End");
+                    + "\n\n Ciena Course Dedicated Registration information follows:"
+                    + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
+                    + "\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
+                    + "\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
+                    + "\n Requestor Email: " + this.getRequestor().getEmail()
+                    + "\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
+                    + "\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
+                    + "\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
+                    + "\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
+                    + "\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
+                    + "\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
+                    + "\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
+                    + "\n Ciena Relation: " + this.getRequestor().getRegistration().getCienaRelation()
+                    + "\n\n Course Information: "
+                    + "\n Course Type: " + this.getRequestor().getRegistration().getCourseType()
+                    + "\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
+                    + "\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
+                    + "\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
+                    + "\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
+                    + "\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
+                    + "\n Onsite Information: "
+                    + "\n\n Site Address: "
+                    + "\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
+                    + "\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
+                    + "\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
+                    + "\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
+                    + "\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
+                    + "\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
+                    + "\n\n Shipping Address: "
+                    + "\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
+                    + "\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
+                    + "\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
+                    + "\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
+                    + "\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
+                    + "\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
+                    + "\n\n Point of Contact Information: "
+                    + "\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
+                    + "\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
+                    + "\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
+                    + "\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
+                    + "\n\n Equipment Information: "
+                    + "\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
+                    + "\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
+                    + "\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
+                    + "\n\n Student List: " + studentListString()
+                    + "\n\n End");
 
             Transport.send(message);
 
@@ -205,15 +205,15 @@ public class ViewRegistration implements Serializable {
     }
 
     private String studentListString() {
-        String returnString="";
-        
-        for (Student student : this.getRequestor().getRegistration().getStudents()){
-            returnString += "\n\nFirst Name: "+student.getFirstName()
-                    + "\nLast Name: "+student.getLastName()
-                    +"\nEmail: "+student.getEmail()
-                    +"\nPhone Number: "+student.getPhoneNumber()+"\t";
+        String returnString = "";
+
+        for (Student student : this.getRequestor().getRegistration().getStudents()) {
+            returnString += "\n\nFirst Name: " + student.getFirstName()
+                    + "\nLast Name: " + student.getLastName()
+                    + "\nEmail: " + student.getEmail()
+                    + "\nPhone Number: " + student.getPhoneNumber() + "\t";
         }
-        
+
         return returnString;
     }
 }
