@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
@@ -49,12 +50,9 @@ public class ViewRegistration implements Serializable {
 
         registrationDAO.Add(requestor);
         
-        //sendOutEmail();
+        sendOutEmail();
         
-        //reset all variables in case user doing again since this is session scoped :P
-        requestor = new Requestor();
-        registrationDAO = new RegistrationDAO();
-        this.requestor.getRegistration().setRegistrationDate(getCurrentDate());
+        
         
     }
 
@@ -150,7 +148,7 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
            // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("aleoperea@yahoo.com"));
+                    InternetAddress.parse("techtng@ciena.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName()+" Course Registration on "+this.getRequestor().getRegistration().getCourseDate());
             message.setText("This is an automated email."
                     +"\n\n Ciena Course Dedicated Registration information follows:"

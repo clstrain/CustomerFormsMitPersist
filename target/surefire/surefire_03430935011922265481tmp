@@ -1,8 +1,0 @@
-#surefire_0
-#Thu May 01 10:41:13 EDT 2014
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.0\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Users\\aperea\\Documents\\NetBeansProjects\\CustomerFormsMitPersist
-DEF=456
-localRepository=C\:\\Users\\aperea\\.m2\\repository
-netbeans.deploy=true
-basedir=C\:\\Users\\aperea\\Documents\\NetBeansProjects\\CustomerFormsMitPersist
