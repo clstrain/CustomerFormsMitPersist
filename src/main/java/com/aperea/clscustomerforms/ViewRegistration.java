@@ -48,9 +48,20 @@ public class ViewRegistration implements Serializable {
 
     public void submit() {
 
+        FacesMessage msg = new FacesMessage("Processing....");
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
         registrationDAO.Add(requestor);
 
-        sendOutEmail();
+        sendEmailToAdmin();
+        
+        sendEmailToUser();
+        
+                msg = new FacesMessage("Done!");
+
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
     public void addStudent() {
@@ -120,7 +131,7 @@ public class ViewRegistration implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    private void sendOutEmail() {
+    private void sendEmailToAdmin() {
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -197,7 +208,7 @@ public class ViewRegistration implements Serializable {
 
             Transport.send(message);
 
-            System.out.println("Email Sent");
+            System.out.println("Admin Email Sent");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
@@ -216,4 +227,87 @@ public class ViewRegistration implements Serializable {
 
         return returnString;
     }
+
+    private void sendEmailToUser() {
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("techtrng.course.reg@gmail.com", "dmewualfcajjfxqd");
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("techtng.ciena.com", "Ciena"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(this.getRequestor().getEmail()));
+            message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Confirmation Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
+            message.setText("This is an automated email."
+                    + "\n\n Ciena Course Dedicated Registration information follows:"
+                    + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
+                    + "\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
+                    + "\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
+                    + "\n Requestor Email: " + this.getRequestor().getEmail()
+                    + "\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
+                    + "\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
+                    + "\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
+                    + "\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
+                    + "\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
+                    + "\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
+                    + "\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
+                    + "\n Ciena Relation: " + this.getRequestor().getRegistration().getCienaRelation()
+                    + "\n\n Course Information: "
+                    + "\n Course Type: " + this.getRequestor().getRegistration().getCourseType()
+                    + "\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
+                    + "\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
+                    + "\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
+                    + "\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
+                    + "\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
+                    + "\n Onsite Information: "
+                    + "\n\n Site Address: "
+                    + "\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
+                    + "\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
+                    + "\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
+                    + "\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
+                    + "\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
+                    + "\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
+                    + "\n\n Shipping Address: "
+                    + "\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
+                    + "\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
+                    + "\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
+                    + "\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
+                    + "\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
+                    + "\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
+                    + "\n\n Point of Contact Information: "
+                    + "\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
+                    + "\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
+                    + "\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
+                    + "\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
+                    + "\n\n Equipment Information: "
+                    + "\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
+                    + "\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
+                    + "\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
+                    + "\n\n Student List: " + studentListString()
+                    + "\n\n End");
+
+            Transport.send(message);
+
+            System.out.println("User Email Sent");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }    }
 }
