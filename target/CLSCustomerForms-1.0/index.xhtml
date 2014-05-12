@@ -136,7 +136,7 @@
                                         </p:column>
 
                                         <p:column>
-                                            <h:outputLabel for="companyState" value="State " />
+                                            <h:outputLabel for="companyState" value="State: " />
                                             <p:inputText id="companyState" value="#{viewRegistration.requestor.company.companyAddress.myState}" required="false">
                                                 <p:ajax event="blur" update="companyStateMsg" />
                                             </p:inputText>
@@ -147,7 +147,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <h:outputLabel for="companyZIP" value="Zip Code " />
+                                            <h:outputLabel for="companyZIP" value="Zip Code: " />
                                             <p:inputText id="companyZIP" value="#{viewRegistration.requestor.company.companyAddress.zip}" required="false">
                                                 <p:ajax event="blur" update="companyZIPMsg" />
                                             </p:inputText>
@@ -385,7 +385,7 @@
                                     </p:inputText>
                                     <p:message id="pocPhoneNumberMsg" for="pocPhoneNumber"  />
                                 </p:panelGrid>
-                                
+                                 
                                
                                  <p:panelGrid columns="2" >  
 
@@ -431,10 +431,9 @@
 
                             <p:messages id="messages2" />
                             <h3>If this is a privately held course, please enter the information about the students in the form below. For individual course registration, you may proceed by selecting the next button.</h3>
-                            <p>Instructions: Click the "New Student" button, then click the pen icon in the "Edit" column. Enter the student's information, and click the check box to the right to commit the information. Repeat these steps to add additional students. When you are finished, click the next button.</p>
 
 
-                            <p:dataTable var="student" value="#{viewRegistration.requestor.registration.students}" id="studentList" editable="true">  
+                            <p:dataTable var="student" value="#{viewRegistration.requestor.registration.students}"  emptyMessage="Add a student by selecting the Add Student button below." id="studentList" editable="true">  
 
                                 <f:facet name="header">  
                                     Student Information
@@ -495,14 +494,14 @@
                                 </p:column>  
 
                                 <f:facet name="footer">
-                                    <p:commandButton value="New Student"  
-                                                     icon="ui-icon-circle-plus"   oncomplete="PF('addStudent').show()" style="inherit:none;"/>
+                                    <p:commandButton value="Add Student"  
+                                                     icon="ui-icon-circle-plus"   oncomplete="PF('addStudent').show()" />
                                 </f:facet>
-
+ 
                             </p:dataTable>  
                             
                             <p:dialog id="addStudent" header="Add Student" widgetVar="addStudent" resizable="false"
-                                width="200" showEffect="clip" hideEffect="fold">
+                                width="333" showEffect="clip" hideEffect="fold">
                                 
                                 <p:outputLabel>First Name</p:outputLabel>
                                             <p:inputText value="#{viewRegistration.newStudent.firstName}" style="width:100%"/>  
@@ -523,7 +522,7 @@
                                         
                                 
                                 <p:commandButton value="Okay"  action="#{viewRegistration.addStudent()}"
-                                                 icon="ui-icon-check" update="@form"  oncomplete="PF('addStudent').hide()" style="inherit:none;"/>
+                                                 icon="ui-icon-check" update="@form"  oncomplete="PF('addStudent').hide()" style=""/>
 
                             </p:dialog>     
                              
@@ -566,26 +565,30 @@
                                 <ul>
                                     <li>Cancellations must be received in writing (email accepted) by Ciena 10 business days or more prior to the course start
                                         date in order to avoid a penalty for aggregate costs incurred by Ciena.</li>
-                                    <li>Cancellations received by Ciena within 6–9 business days of the course start date are subject to a cancellation fee
+                                    <li>Cancellations received by Ciena within 6 to 9 business days of the course start date are subject to a cancellation fee
                                         equal to 50% of the price of the relevant training program.</li>
                                     <li>Cancellations received by Ciena within 5 business days of the course start date are subject to a cancellation fee
                                         equal to 100% of the price of the relevant training program.</li>
                                     <li>"No-shows" will be charged 100% of the paid per-seat price for any person not attending.</li>
                                     <li>Substitutions are permitted up to the start of the course if the purchase order is re-applied to the new student.</li>
-                                    <li>Ciena reserves the right to reschedule courses with less than 6 students enrolled by the published registration deadline.
-                                        Cancellation Policy for Web-based Training</li>
+                                    <li>Ciena reserves the right to reschedule courses with less than 6 students enrolled by the published registration deadline.</li>
+                                </ul>
+                                
+                                        <p>Cancellation Policy for Web-based Training</p>
+                                        <ul>
                                     <li>Registrations are considered active once student is notified that Ciena has provided courseware access with instructions.</li>
                                     <li>Students will have access to the courseware for a period of 60 days from active registration unless otherwise specified in
                                         the governing customer contract.</li>
                                 </ul>
 
-                                <h:outputLabel value="I have read and agree to the terms and conditions of Ciena Corporation’s cancellation and “no show” policy.
+                                        <p>I have read and agree to the terms and conditions of Ciena Corporation&#8217;s cancellation and <q>no show</q> policy.
                                                Please note that by submitting this form, you are electronically signing as acceptance to the terms which are outlined
-                                               in the Training Registration Form. This section must be completed before your registration can be processed." for="submitButton" />  
+                                               in the Training Registration Form. This section must be completed before your registration can be processed. 
                                 <p:commandButton value="Submit" widgetVar="submitButton" id="submitButton"
                                                  action="thanks"
                                                  actionListener="#{viewRegistration.submit()}"                                     
                                                  ajax="false"/>
+                                </p>
 
                             </p:panel>
                         </p:tab>

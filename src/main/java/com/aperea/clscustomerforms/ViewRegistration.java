@@ -249,7 +249,7 @@ public class ViewRegistration implements Serializable {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("techtng.ciena.com", "Ciena"));
+            message.setFrom(new InternetAddress("techtng.ciena.com", "Ciena Learning Solutions"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(this.getRequestor().getEmail()));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Confirmation Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
