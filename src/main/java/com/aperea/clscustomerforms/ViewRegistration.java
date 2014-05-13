@@ -156,54 +156,52 @@ public class ViewRegistration implements Serializable {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse("techtng@ciena.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
-            message.setText("This is an automated email."
+             message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
                     + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
-                    + "\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
-                    + "\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
-                    + "\n Requestor Email: " + this.getRequestor().getEmail()
-                    + "\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
-                    + "\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
-                    + "\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
-                    + "\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
-                    + "\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
-                    + "\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
-                    + "\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
-                    + "\n Ciena Relation: " + this.getRequestor().getRegistration().getCienaRelation()
-                    + "\n\n Course Information: "
-                    + "\n Course Type: " + this.getRequestor().getRegistration().getCourseType()
-                    + "\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
-                    + "\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
-                    + "\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
-                    + "\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
-                    + "\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
-                    + "\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
-                    + "\n Onsite Information: "
-                    + "\n\n Site Address: "
-                    + "\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
-                    + "\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
-                    + "\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
-                    + "\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
-                    + "\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
-                    + "\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
-                    + "\n\n Shipping Address: "
-                    + "\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
-                    + "\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
-                    + "\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
-                    + "\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
-                    + "\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
-                    + "\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
-                    + "\n\n Point of Contact Information: "
-                    + "\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
-                    + "\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
-                    + "\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
-                    + "\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
-                    + "\n\n Equipment Information: "
-                    + "\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
-                    + "\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
-                    + "\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
-                    + "\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
-                    + "\n\n Student List: " + studentListString()
+                    + "\n\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
+                    + "\n\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
+                    + "\n\n Requestor Email: " + this.getRequestor().getEmail()
+                    + "\n\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
+                    + "\n\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
+                    + "\n\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
+                    + "\n\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
+                    + "\n\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
+                    + "\n\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
+                    + "\n\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
+                    + "\n\n\n Course Information: "
+                    + "\n\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
+                    + "\n\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
+                    + "\n\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
+                    + "\n\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
+                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
+                    + "\n\n Onsite Information: "
+                    + "\n\n\n Site Address: "
+                    + "\n\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
+                    + "\n\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
+                    + "\n\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
+                    + "\n\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
+                    + "\n\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
+                    + "\n\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
+                    + "\n\n\n Shipping Address: "
+                    + "\n\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
+                    + "\n\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
+                    + "\n\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
+                    + "\n\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
+                    + "\n\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
+                    + "\n\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
+                    + "\n\n\n Point of Contact Information: "
+                    + "\n\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
+                    + "\n\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
+                    + "\n\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
+                    + "\n\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
+                    + "\n\n\n Equipment Information: "
+                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
+                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
+                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
+                    + "\n\n\n Student List: " + studentListString()
                     + "\n\n End");
 
             Transport.send(message);
@@ -253,54 +251,52 @@ public class ViewRegistration implements Serializable {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(this.getRequestor().getEmail()));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Confirmation Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
-            message.setText("This is an automated email."
+            message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
                     + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
-                    + "\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
-                    + "\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
-                    + "\n Requestor Email: " + this.getRequestor().getEmail()
-                    + "\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
-                    + "\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
-                    + "\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
-                    + "\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
-                    + "\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
-                    + "\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
-                    + "\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
-                    + "\n Ciena Relation: " + this.getRequestor().getRegistration().getCienaRelation()
-                    + "\n\n Course Information: "
-                    + "\n Course Type: " + this.getRequestor().getRegistration().getCourseType()
-                    + "\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
-                    + "\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
-                    + "\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
-                    + "\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
-                    + "\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
-                    + "\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
-                    + "\n Onsite Information: "
-                    + "\n\n Site Address: "
-                    + "\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
-                    + "\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
-                    + "\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
-                    + "\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
-                    + "\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
-                    + "\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
-                    + "\n\n Shipping Address: "
-                    + "\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
-                    + "\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
-                    + "\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
-                    + "\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
-                    + "\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
-                    + "\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
-                    + "\n\n Point of Contact Information: "
-                    + "\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
-                    + "\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
-                    + "\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
-                    + "\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
-                    + "\n\n Equipment Information: "
-                    + "\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
-                    + "\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
-                    + "\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
-                    + "\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
-                    + "\n\n Student List: " + studentListString()
+                    + "\n\n Request Name (First, Last): " + this.getRequestor().getFirstName() + " " + this.getRequestor().getLastName()
+                    + "\n\n Company Name: " + this.getRequestor().getCompany().getCompanyName()
+                    + "\n\n Requestor Email: " + this.getRequestor().getEmail()
+                    + "\n\n Company Street1: " + this.getRequestor().getCompany().getCompanyAddress().getStreet1()
+                    + "\n\n Company Street2: " + this.getRequestor().getCompany().getCompanyAddress().getStreet2()
+                    + "\n\n Company City: " + this.getRequestor().getCompany().getCompanyAddress().getCity()
+                    + "\n\n Company State: " + this.getRequestor().getCompany().getCompanyAddress().getMyState()
+                    + "\n\n Company ZIP: " + this.getRequestor().getCompany().getCompanyAddress().getZip()
+                    + "\n\n Company Country: " + this.getRequestor().getCompany().getCompanyAddress().getCountry()
+                    + "\n\n Company Phone: " + this.getRequestor().getCompany().getCompanyPhone()
+                    + "\n\n\n Course Information: "
+                    + "\n\n Course Number: " + this.getRequestor().getRegistration().getCourseNumber()
+                    + "\n\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
+                    + "\n\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
+                    + "\n\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
+                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
+                    + "\n\n Onsite Information: "
+                    + "\n\n\n Site Address: "
+                    + "\n\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
+                    + "\n\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
+                    + "\n\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
+                    + "\n\n Site State: " + this.getRequestor().getRegistration().getSiteAddress().getMyState()
+                    + "\n\n Site ZIP: " + this.getRequestor().getRegistration().getSiteAddress().getZip()
+                    + "\n\n Site Country: " + this.getRequestor().getRegistration().getSiteAddress().getCountry()
+                    + "\n\n\n Shipping Address: "
+                    + "\n\n Shipping Street1: " + this.getRequestor().getRegistration().getShippingAddress().getStreet1()
+                    + "\n\n Shipping Street2: " + this.getRequestor().getRegistration().getShippingAddress().getStreet2()
+                    + "\n\n Shipping City: " + this.getRequestor().getRegistration().getShippingAddress().getCity()
+                    + "\n\n Shipping State: " + this.getRequestor().getRegistration().getShippingAddress().getMyState()
+                    + "\n\n Shipping ZIP: " + this.getRequestor().getRegistration().getShippingAddress().getZip()
+                    + "\n\n Shipping Country: " + this.getRequestor().getRegistration().getShippingAddress().getCountry()
+                    + "\n\n\n Point of Contact Information: "
+                    + "\n\n POC First Name: " + this.getRequestor().getRegistration().getPocFirstName()
+                    + "\n\n POC Last Name: " + this.getRequestor().getRegistration().getPocLastName()
+                    + "\n\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
+                    + "\n\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
+                    + "\n\n\n Equipment Information: "
+                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
+                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
+                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
+                    + "\n\n\n Student List: " + studentListString()
                     + "\n\n End");
 
             Transport.send(message);
