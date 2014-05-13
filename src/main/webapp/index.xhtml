@@ -26,6 +26,16 @@
 
             <div id="registrationForm">
 
+                <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+    <f:facet name="start">
+        <p:graphicImage value="/gfx/loading.gif" />
+    </f:facet>
+ 
+    <f:facet name="complete">
+        <h:outputText value="" />
+    </f:facet>
+</p:ajaxStatus>
+                
                 <h:form id="RegistrationForm">
 
                     <p:growl id="messages" showDetail="true"/>  
@@ -532,24 +542,29 @@
                             <p:panel>
                                 <p:messages id="messages3" />
 
+                                <h:outputText value="Using Training Credits: " />  
+                                <p:selectBooleanButton value="#{viewRegistration.requestor.registration.isTrainingCredits}" onLabel="Yes" offLabel="No" > 
+                                        <p:ajax event="change" update="poPanel" />
+</p:selectBooleanButton>
+                                <br/>
+                                
+                                <p:panel id="poPanel"  collapsed="#{viewRegistration.requestor.registration.isTrainingCredits}">
                                 <h:outputLabel for="purchaseOrderNumber" value="Purchase Order Number: " />
                                 <p:inputText id="purchaseOrderNumber" value="#{viewRegistration.requestor.registration.purchaseOrderNumber}" required="false">
                                     <p:ajax event="blur" update="purchaseOrderNumberMsg" />
                                 </p:inputText>
                                 <p:message id="purchaseOrderNumberMsg" for="purchaseOrderNumber"  />
 
-                                <h:outputText value="Using Training Credits: " />  
-                                <p:selectBooleanButton value="#{viewRegistration.requestor.registration.isTrainingCredits}" onLabel="Yes" offLabel="No" /> 
-
-                                <br/>
-
+                                </p:panel>
+                                
+<!--
                                 <h:outputLabel for="nonRevNumber" value="Non-Rev Number: " />
                                 <p:inputText id="nonRevNumber" value="#{viewRegistration.requestor.registration.nonRevNumber}" required="false">
                                     <p:ajax event="blur" update="nonRevNumberMsg" />
                                 </p:inputText>
                                 <p:message id="nonRevNumberMsg" for="nonRevNumber"  />
-
-                                <p>Please complete and sign this registration form and submit to the Ciena Training Coordinator, techtng@ciena.com. All
+-->
+                                <p>Please complete and sign this registration form and submit to the Ciena Training Coordinator, training_approval@ciena.com. All
                                     registrations are considered pending until proof of payment is received and the Training coordinator has sent a confirmation to
                                     the student.</p>
                                 
@@ -583,15 +598,21 @@
 
                                         <p>I have read and agree to the terms and conditions of Ciena Corporation&#8217;s cancellation and <q>no show</q> policy.
                                                Please note that by submitting this form, you are electronically signing as acceptance to the terms which are outlined
-                                               in the Training Registration Form. This section must be completed before your registration can be processed. 
+                                               in the Training Registration Form. This section must be completed before your registration can be processed. </p>
+                                        <p style="color:red">Note: You will not yet be officially registered for training until final confirmation by Ciena.</p>
+
                                 <p:commandButton value="Submit" widgetVar="submitButton" id="submitButton"
-                                                 action="thanks"
-                                                 actionListener="#{viewRegistration.submit()}"                                     
-                                                 ajax="false"/>
-                                </p>
+                                                 action="thanks" global="false"
+                                                 actionListener="#{viewRegistration.submit()}"  onclick="PF('bui').show()"                                   
+                                                 
+                                                 onstart="statusDialog.show();" onsuccess="statusDialog.hide()"
+                                                 />
+                              <p:blockUI block="submitButton" widgetVar="bui"/>
 
-                                                     <p style="color:red">Note: You will not yet be officially registered for training until final confirmation by Ciena.</p>
-
+                              <p:dialog id="statusDialog" header="Submit" widgetVar="dlg2" modal="true" >
+    <h:outputText value="Please wait for the form to be sent...." />
+</p:dialog>
+                                                     
                             </p:panel>
                         </p:tab>
 
