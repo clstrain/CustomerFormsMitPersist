@@ -154,7 +154,7 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
             // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("techtng@ciena.com"));
+                    InternetAddress.parse("training_approval@ciena.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
              message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
@@ -247,7 +247,7 @@ public class ViewRegistration implements Serializable {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("techtng.ciena.com", "Ciena Learning Solutions"));
+            message.setFrom(new InternetAddress("training_approval@ciena.com", "Ciena Learning Solutions"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(this.getRequestor().getEmail()));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Confirmation Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
