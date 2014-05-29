@@ -27,20 +27,22 @@
             <div id="registrationForm">
 
                 <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
-    <f:facet name="start">
-        <p:graphicImage value="/gfx/loading.gif" />
-    </f:facet>
- 
-    <f:facet name="complete">
-        <h:outputText value="" />
-    </f:facet>
-</p:ajaxStatus>
-                
+                    <f:facet name="start">
+                        <p:graphicImage value="./gfx/ajax-loader.gif" />
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+
                 <h:form id="RegistrationForm">
 
                     <p:growl id="messages" showDetail="true"/>  
 
-                    <p:wizard flowListener="#{viewRegistration.onFlowProcess}" id="myWizard">  
+                    <p:wizard flowListener="#{viewRegistration.onFlowProcess}" id="myWizard" >  
+
+
 
                         <p:tab id="personal" title="Primary Information">
 
@@ -61,7 +63,7 @@
                                         <p:column>
                                             <h:outputLabel for="firstName" value="First Name: " />
                                             <p:inputText id="firstName" value="#{viewRegistration.requestor.firstName}" required="true" requiredMessage="Please enter your first name.">
-                                                                                                         
+
 
                                                 <p:ajax event="blur" update="firstNameMsg" />
                                             </p:inputText>
@@ -172,41 +174,40 @@
                                     </p:row>
                                 </p:panelGrid>
 
-
-
-                                <p:panelGrid columns="2" >  
-
-                                    <h:outputText value="Ciena Training Site: " />  
-                                    <p:selectBooleanButton value="#{viewRegistration.requestor.registration.isTrainingSite}" id="CienaTrainingSite" required="true" onLabel="Ciena Site" offLabel="Other Site" requiredMessage="Please tell us if this is a Ciena training site." /> 
-
-                                </p:panelGrid> 
-<p:message for="CienaTrainingSite"/>
-<!--
-                                <p:panelGrid columns="2" >  
-
-                                    <h:outputText value="Ciena Relation:" />  
-                                    <p:selectOneButton value="#{viewRegistration.requestor.registration.cienaRelation}" required="true"  requiredMessage="Please Enter Ciena Relation" id="CienaRelation">  
-                                        <f:selectItem itemLabel="Employee" itemValue="Employee" />  
-                                        <f:selectItem itemLabel="Customer" itemValue="Customer" />  
-                                    </p:selectOneButton>  
-                                </p:panelGrid>  
-<p:message for="CienaRelation"/>
-
-
-
-                                <p:panelGrid columns="2" >  
-
-                                    <h:outputText value="Course Type:" />  
-                                    <p:selectOneButton value="#{viewRegistration.requestor.registration.courseType}" requiredMessage="Please Enter Course Type" required="true" id="CourseType" >  
-                                        <f:selectItem itemLabel="Web Based" itemValue="Web Based" />  
-                                        <f:selectItem itemLabel="Instructor-led" itemValue="Instructor Led" />  
-                                        <f:selectItem itemLabel="Virtual Instructor-led" itemValue="Virtual Instructor-led" />  
-                                        <f:selectItem itemLabel="Blended Learning Kit" itemValue="Blended Learning Kit" />  
-                                    </p:selectOneButton>  
-
-                                </p:panelGrid>  
-<p:message for="CourseType"/>
--->
+                                <p:outputLabel for="trainingSite" value="Training Site: " />
+                                <p:selectOneMenu id="trainingSite" value="#{viewRegistration.requestor.registration.trainingSite}">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                    <f:selectItems value="#{viewRegistration.trainingSiteSelectItems}" />
+                                </p:selectOneMenu>
+                                <p:message for="trainingSite"/>
+                                <p style="color:red">Note: your Ciena Training Location will be assigned based on product and training lab availability. </p>
+                                <!--
+                                
+                                                                <p:panelGrid columns="2" >  
+                                
+                                                                    <h:outputText value="Ciena Relation:" />  
+                                                                    <p:selectOneButton value="#{viewRegistration.requestor.registration.cienaRelation}" required="true"  requiredMessage="Please Enter Ciena Relation" id="CienaRelation">  
+                                                                        <f:selectItem itemLabel="Employee" itemValue="Employee" />  
+                                                                        <f:selectItem itemLabel="Customer" itemValue="Customer" />  
+                                                                    </p:selectOneButton>  
+                                                                </p:panelGrid>  
+                                <p:message for="CienaRelation"/>
+                                
+                                
+                                
+                                                                <p:panelGrid columns="2" >  
+                                
+                                                                    <h:outputText value="Course Type:" />  
+                                                                    <p:selectOneButton value="#{viewRegistration.requestor.registration.courseType}" requiredMessage="Please Enter Course Type" required="true" id="CourseType" >  
+                                                                        <f:selectItem itemLabel="Web Based" itemValue="Web Based" />  
+                                                                        <f:selectItem itemLabel="Instructor-led" itemValue="Instructor Led" />  
+                                                                        <f:selectItem itemLabel="Virtual Instructor-led" itemValue="Virtual Instructor-led" />  
+                                                                        <f:selectItem itemLabel="Blended Learning Kit" itemValue="Blended Learning Kit" />  
+                                                                    </p:selectOneButton>  
+                                
+                                                                </p:panelGrid>  
+                                <p:message for="CourseType"/>
+                                -->
                                 <p:panelGrid>  
                                     <p:row>
                                         <p:column>
@@ -232,12 +233,11 @@
                                     <h:outputLabel for="courseDate" value="Instructor-led Course Date:" />
                                     <p:calendar value="#{viewRegistration.requestor.registration.courseDate}"   requiredMessage="Please enter a Course Date" id="courseDate" effect="slide" required="true"/> 
                                 </p:panelGrid>
-                                            <p:message id="courseDateMsg" for="courseDate"  />
+                                <p:message id="courseDateMsg" for="courseDate"  />
 
 
                             </p:panel>
                         </p:tab>
-
 
                         <p:tab id="onsiteTrainingChecklist" title="Onsite Training Checklist">
 
@@ -302,65 +302,65 @@
                                     </p:row>
                                 </p:panelGrid>
 
-                         
+
                                 <p:fieldset legend="Shipping Address (if different than Site Address)" toggleable="true" toggleSpeed="500" collapsed="true">  
-                                
-                                <p:panelGrid columns="2">
-                                    
-                                    <p:row>
-                                        <p:column colspan="2">
-                                            <h:outputLabel for="shippingAddressStreet1" value="Street 1: " />
-                                            <p:inputText id="shippingAddressStreet1" value="#{viewRegistration.requestor.registration.shippingAddress.street1}" required="false">
-                                                <p:ajax event="blur" update="shippingAddressStreet1Msg" />
-                                            </p:inputText>
-                                            <p:message id="shippingAddressStreet1Msg" for="shippingAddressStreet1"  />
+
+                                    <p:panelGrid columns="2">
+
+                                        <p:row>
+                                            <p:column colspan="2">
+                                                <h:outputLabel for="shippingAddressStreet1" value="Street 1: " />
+                                                <p:inputText id="shippingAddressStreet1" value="#{viewRegistration.requestor.registration.shippingAddress.street1}" required="false">
+                                                    <p:ajax event="blur" update="shippingAddressStreet1Msg" />
+                                                </p:inputText>
+                                                <p:message id="shippingAddressStreet1Msg" for="shippingAddressStreet1"  />
 
 
-                                            <h:outputLabel for="shippingAddressStreet2" value="Street 2: " />
-                                            <p:inputText id="shippingAddressStreet2" value="#{viewRegistration.requestor.registration.shippingAddress.street2}" required="false">
-                                                <p:ajax event="blur" update="shippingAddressStreet2Msg" />
-                                            </p:inputText>
-                                            <p:message id="shippingAddressStreet2Msg" for="shippingAddressStreet2"  />
+                                                <h:outputLabel for="shippingAddressStreet2" value="Street 2: " />
+                                                <p:inputText id="shippingAddressStreet2" value="#{viewRegistration.requestor.registration.shippingAddress.street2}" required="false">
+                                                    <p:ajax event="blur" update="shippingAddressStreet2Msg" />
+                                                </p:inputText>
+                                                <p:message id="shippingAddressStreet2Msg" for="shippingAddressStreet2"  />
 
-                                        </p:column>                                        
-                                    </p:row>
-                                    <p:row>
-                                        <p:column >
+                                            </p:column>                                        
+                                        </p:row>
+                                        <p:row>
+                                            <p:column >
 
-                                            <h:outputLabel for="shippingCity" value="City: " />
-                                            <p:inputText id="shippingCity" value="#{viewRegistration.requestor.registration.shippingAddress.city}" required="false">
-                                                <p:ajax event="blur" update="shippingCityMsg" />
-                                            </p:inputText>
-                                            <p:message id="shippingCityMsg" for="shippingCity"  />
+                                                <h:outputLabel for="shippingCity" value="City: " />
+                                                <p:inputText id="shippingCity" value="#{viewRegistration.requestor.registration.shippingAddress.city}" required="false">
+                                                    <p:ajax event="blur" update="shippingCityMsg" />
+                                                </p:inputText>
+                                                <p:message id="shippingCityMsg" for="shippingCity"  />
 
-                                        </p:column>
+                                            </p:column>
 
-                                        <p:column>
-                                            <h:outputLabel for="shippingState" value="State " />
-                                            <p:inputText id="shippingState" value="#{viewRegistration.requestor.registration.shippingAddress.myState}" required="false">
-                                                <p:ajax event="blur" update="shippingStateMsg" />
-                                            </p:inputText>
-                                            <p:message id="shippingStateMsg" for="shippingState"  />
+                                            <p:column>
+                                                <h:outputLabel for="shippingState" value="State " />
+                                                <p:inputText id="shippingState" value="#{viewRegistration.requestor.registration.shippingAddress.myState}" required="false">
+                                                    <p:ajax event="blur" update="shippingStateMsg" />
+                                                </p:inputText>
+                                                <p:message id="shippingStateMsg" for="shippingState"  />
 
 
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel for="shippingZIP" value="Zip Code " />
-                                            <p:inputText id="shippingZIP" value="#{viewRegistration.requestor.registration.shippingAddress.zip}" required="false">
-                                                <p:ajax event="blur" update="shippingZIPMsg" />
-                                            </p:inputText>
-                                            <p:message id="shippingZIPMsg" for="shippingZIP"  />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputLabel for="shippingZIP" value="Zip Code " />
+                                                <p:inputText id="shippingZIP" value="#{viewRegistration.requestor.registration.shippingAddress.zip}" required="false">
+                                                    <p:ajax event="blur" update="shippingZIPMsg" />
+                                                </p:inputText>
+                                                <p:message id="shippingZIPMsg" for="shippingZIP"  />
 
-                                            <h:outputLabel for="shippingCountry" value="Country: " />
-                                            <p:inputText id="shippingCountry" value="#{viewRegistration.requestor.registration.shippingAddress.country}" required="false">
-                                                <p:ajax event="blur" update="shippingCountryMsg" />
-                                            </p:inputText>
-                                            <p:message id="shippingCountryMsg" for="shippingCountry"  />
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
+                                                <h:outputLabel for="shippingCountry" value="Country: " />
+                                                <p:inputText id="shippingCountry" value="#{viewRegistration.requestor.registration.shippingAddress.country}" required="false">
+                                                    <p:ajax event="blur" update="shippingCountryMsg" />
+                                                </p:inputText>
+                                                <p:message id="shippingCountryMsg" for="shippingCountry"  />
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
 
                                 </p:fieldset>
                                 <p>Point of contact information (if different than requestor)</p>
@@ -395,39 +395,39 @@
                                     </p:inputText>
                                     <p:message id="pocPhoneNumberMsg" for="pocPhoneNumber"  />
                                 </p:panelGrid>
-                                 
-                               
-                                 <p:panelGrid columns="2" >  
+
+
+                                <p:panelGrid columns="2" >  
 
                                     <h:outputText value="Do you have a projector? " />  
                                     <p:selectBooleanButton value="#{viewRegistration.requestor.registration.hasProjector}" onLabel="Yes" offLabel="No" /> 
- 
+
                                 </p:panelGrid> 
-                                
-                                 <p:panelGrid columns="2" >  
+
+                                <p:panelGrid columns="2" >  
 
                                     <h:outputText value="Do you have a whiteboard/flipboards? " />  
                                     <p:selectBooleanButton value="#{viewRegistration.requestor.registration.hasWhiteBoards}" onLabel="Yes" offLabel="No" /> 
 
                                 </p:panelGrid> 
-                                
-                                 <p:panelGrid columns="2" >  
+
+                                <p:panelGrid columns="2" >  
 
                                     <h:outputText value="Please confirm that the students will have PCs or laptops with admin rights to change the IP address." />  
                                     <p:selectBooleanButton value="#{viewRegistration.requestor.registration.hasLaptops}" onLabel="Yes" offLabel="No" /> 
 
                                 </p:panelGrid> 
-                                
+
                                 <p:panelGrid columns="2">
                                     <h:outputLabel for="additionalNotes" value="Additional Notes: " />
                                     <p:inputTextarea id="additionalNotes" value="#{viewRegistration.requestor.registration.additionalNotes}" cols="60" autoResize="true" required="false" >
                                         <p:ajax event="blur" update="additionalNotesMsg" />
                                     </p:inputTextarea>
                                     <p:message id="additionalNotesMsg" for="additionalNotes"  />
-                                    
-                                   
+
+
                                 </p:panelGrid>
-                                
+
 
                             </p:panel>
 
@@ -475,7 +475,7 @@
                                     </p:cellEditor>  
                                 </p:column>  
 
-                                
+
                                 <p:column headerText="Phone" style="width:20%">  
                                     <p:cellEditor>  
                                         <f:facet name="output">  
@@ -486,7 +486,7 @@
                                         </f:facet>  
                                     </p:cellEditor>  
                                 </p:column>  
-                                
+
                                 <p:column headerText="Email" style="width:20%">  
                                     <p:cellEditor>  
                                         <f:facet name="output">  
@@ -507,35 +507,35 @@
                                     <p:commandButton value="Add Student"  
                                                      icon="ui-icon-circle-plus"   oncomplete="PF('addStudent').show()" />
                                 </f:facet>
- 
+
                             </p:dataTable>  
-                            
+
                             <p:dialog id="addStudent" header="Add Student" widgetVar="addStudent" resizable="false"
-                                width="333" showEffect="clip" hideEffect="fold">
-                                
+                                      width="333" showEffect="clip" hideEffect="fold">
+
                                 <p:outputLabel>First Name</p:outputLabel>
-                                            <p:inputText value="#{viewRegistration.newStudent.firstName}" style="width:100%"/>  
-                                            
+                                <p:inputText value="#{viewRegistration.newStudent.firstName}" style="width:100%"/>  
+
                                 <p:outputLabel>Last Name</p:outputLabel>
 
-                                            <p:inputText value="#{viewRegistration.newStudent.lastName}" style="width:100%" label="Last Name"/>  
+                                <p:inputText value="#{viewRegistration.newStudent.lastName}" style="width:100%" label="Last Name"/>  
 
-                                
-                                                                     <p:outputLabel>Phone Number</p:outputLabel>
 
-                                            <p:inputText value="#{viewRegistration.newStudent.phoneNumber}" style="width:100%" label="Phone"/>  
-                                          
-                                
-                                                                      <p:outputLabel>Business Email Address</p:outputLabel>
+                                <p:outputLabel>Phone Number</p:outputLabel>
 
-                                            <p:inputText value="#{viewRegistration.newStudent.email}" style="width:100%" label="Email"/>  
-                                        
-                                
+                                <p:inputText value="#{viewRegistration.newStudent.phoneNumber}" style="width:100%" label="Phone"/>  
+
+
+                                <p:outputLabel>Business Email Address</p:outputLabel>
+
+                                <p:inputText value="#{viewRegistration.newStudent.email}" style="width:100%" label="Email"/>  
+
+
                                 <p:commandButton value="Okay"  action="#{viewRegistration.addStudent()}"
                                                  icon="ui-icon-check" update="@form"  oncomplete="PF('addStudent').hide()" style=""/>
 
                             </p:dialog>     
-                             
+
                         </p:tab>
 
                         <p:tab id="paymentInfo" title="Payment Information">
@@ -544,39 +544,39 @@
 
                                 <h:outputText value="Using Training Credits: " />  
                                 <p:selectBooleanButton value="#{viewRegistration.requestor.registration.isTrainingCredits}" onLabel="Yes" offLabel="No" > 
-                                        <p:ajax event="change" update="poPanel" />
-</p:selectBooleanButton>
+                                    <p:ajax event="change" update="poPanel" />
+                                </p:selectBooleanButton>
                                 <br/>
-                                
+
                                 <p:panel id="poPanel"  collapsed="#{viewRegistration.requestor.registration.isTrainingCredits}">
-                                <h:outputLabel for="purchaseOrderNumber" value="Purchase Order Number: " />
-                                <p:inputText id="purchaseOrderNumber" value="#{viewRegistration.requestor.registration.purchaseOrderNumber}" required="false">
-                                    <p:ajax event="blur" update="purchaseOrderNumberMsg" />
-                                </p:inputText>
-                                <p:message id="purchaseOrderNumberMsg" for="purchaseOrderNumber"  />
+                                    <h:outputLabel for="purchaseOrderNumber" value="Purchase Order Number: " />
+                                    <p:inputText id="purchaseOrderNumber" value="#{viewRegistration.requestor.registration.purchaseOrderNumber}" required="false">
+                                        <p:ajax event="blur" update="purchaseOrderNumberMsg" />
+                                    </p:inputText>
+                                    <p:message id="purchaseOrderNumberMsg" for="purchaseOrderNumber"  />
 
                                 </p:panel>
-                                
-<!--
-                                <h:outputLabel for="nonRevNumber" value="Non-Rev Number: " />
-                                <p:inputText id="nonRevNumber" value="#{viewRegistration.requestor.registration.nonRevNumber}" required="false">
-                                    <p:ajax event="blur" update="nonRevNumberMsg" />
-                                </p:inputText>
-                                <p:message id="nonRevNumberMsg" for="nonRevNumber"  />
--->
+
+                                <!--
+                                                                <h:outputLabel for="nonRevNumber" value="Non-Rev Number: " />
+                                                                <p:inputText id="nonRevNumber" value="#{viewRegistration.requestor.registration.nonRevNumber}" required="false">
+                                                                    <p:ajax event="blur" update="nonRevNumberMsg" />
+                                                                </p:inputText>
+                                                                <p:message id="nonRevNumberMsg" for="nonRevNumber"  />
+                                -->
                                 <p>Please complete and sign this registration form and submit to the Ciena Training Coordinator, training_approval@ciena.com. All
                                     registrations are considered pending until proof of payment is received and the Training coordinator has sent a confirmation to
                                     the student.</p>
-                                
+
                                 <p>Important: Student registration requests must be tied to a Purchase Order (PO) or a PO number.</p>
-                                
+
                                 <p>Enrollments will be confirmed via e-mail after a purchase order is received. For Instructor-led Training and Virtual
                                     Instructor-led Training, enrollment confirmation, directions, and information on local accommodations will be sent at time of
                                     registration. For Web-based training, enrollment confirmation and instructions will be sent to each individual as soon as the
                                     payment and request form are processed.</p>
-                                
+
                                 <p>Cancellation Policy for Instructor-led and Virtual Instructor-led Training</p>
-                                
+
                                 <ul>
                                     <li>Cancellations must be received in writing (email accepted) by Ciena 10 business days or more prior to the course start
                                         date in order to avoid a penalty for aggregate costs incurred by Ciena.</li>
@@ -588,31 +588,32 @@
                                     <li>Substitutions are permitted up to the start of the course if the purchase order is re-applied to the new student.</li>
                                     <li>Ciena reserves the right to reschedule courses with less than 6 students enrolled by the published registration deadline.</li>
                                 </ul>
-                                
-                                        <p>Cancellation Policy for Web-based Training</p>
-                                        <ul>
+
+                                <p>Cancellation Policy for Web-based Training</p>
+                                <ul>
                                     <li>Registrations are considered active once student is notified that Ciena has provided courseware access with instructions.</li>
                                     <li>Students will have access to the courseware for a period of 60 days from active registration unless otherwise specified in
                                         the governing customer contract.</li>
                                 </ul>
 
-                                        <p>I have read and agree to the terms and conditions of Ciena Corporation&#8217;s cancellation and <q>no show</q> policy.
-                                               Please note that by submitting this form, you are electronically signing as acceptance to the terms which are outlined
-                                               in the Training Registration Form. This section must be completed before your registration can be processed. </p>
-                                        <p style="color:red">Note: You will not yet be officially registered for training until final confirmation by Ciena.</p>
+                                <p>I have read and agree to the terms and conditions of Ciena Corporation&#8217;s cancellation and <q>no show</q> policy.
+                                    Please note that by submitting this form, you are electronically signing as acceptance to the terms which are outlined
+                                    in the Training Registration Form. This section must be completed before your registration can be processed. </p>
+                                <p style="color:red">Note: You will not yet be officially registered for training until final confirmation by Ciena.</p>
 
                                 <p:commandButton value="Submit" widgetVar="submitButton" id="submitButton"
                                                  action="thanks" global="false"
-                                                 actionListener="#{viewRegistration.submit()}"  onclick="PF('bui').show()"                                   
-                                                 
-                                                 onstart="statusDialog.show();" onsuccess="statusDialog.hide()"
-                                                 />
-                              <p:blockUI block="submitButton" widgetVar="bui"/>
+                                                 actionListener="#{viewRegistration.submit()}"                                     
 
-                              <p:dialog id="statusDialog" header="Submit" widgetVar="dlg2" modal="true" >
-    <h:outputText value="Please wait for the form to be sent...." />
-</p:dialog>
-                                                     
+                                                 onstart="statusDialog.show();" onsuccess="statusDialog.show()"
+                                                 />
+
+                                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                    <p>Please wait...</p><p:graphicImage value="./gfx/ajax-loader.gif" />
+                                </p:dialog>
+
                             </p:panel>
                         </p:tab>
 
