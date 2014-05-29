@@ -7,15 +7,20 @@ package com.aperea.clscustomerforms;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -39,34 +44,35 @@ public class ViewRegistration implements Serializable {
     private Student newStudent = new Student();
 
     private RegistrationDAO registrationDAO = new RegistrationDAO();
+    
+    private List<SelectItem>trainingSiteSelectItems;
 
-    public ViewRegistration() {
+    @PostConstruct
+    public void init() {
         requestor = new Requestor();
         registrationDAO = new RegistrationDAO();
         this.requestor.getRegistration().setRegistrationDate(getCurrentDate());
+        
+        //training site selectitems
+       
+        trainingSiteSelectItems = new ArrayList<>();
+        trainingSiteSelectItems.add(new SelectItem("Ciena Site"));
+                trainingSiteSelectItems.add(new SelectItem("Customer Site"));
+
     }
 
     public void submit() {
-
-        FacesMessage msg = new FacesMessage("Processing....");
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         
         registrationDAO.Add(requestor);
 
         sendEmailToAdmin();
         
-        sendEmailToUser();
-        
-                msg = new FacesMessage("Done!");
-
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-
+        sendEmailToUser(); 
     }
 
     public void addStudent() {
-
         requestor.getRegistration().getStudents().add(this.newStudent);
+        
         this.newStudent = new Student();
     }
 
@@ -93,6 +99,14 @@ public class ViewRegistration implements Serializable {
         this.newStudent = newStudent;
     }
 
+    public List<SelectItem> getTrainingSiteSelectItems() {
+        return trainingSiteSelectItems;
+    }
+
+    public void setTrainingSiteSelectItems(List<SelectItem> trainingSiteSelectItems) {
+        this.trainingSiteSelectItems = trainingSiteSelectItems;
+    }
+       
     //wizard stuff
     private boolean skip;
 
@@ -154,7 +168,7 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
             // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("training_approval@ciena.com"));
+                    InternetAddress.parse("aperea@ciena.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
              message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
@@ -178,6 +192,7 @@ public class ViewRegistration implements Serializable {
                     + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
                     + "\n\n Onsite Information: "
                     + "\n\n\n Site Address: "
+                    + "\n\n\n Training Site: " + this.getRequestor().getRegistration().getTrainingSite()
                     + "\n\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
                     + "\n\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
                     + "\n\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()
@@ -273,6 +288,7 @@ public class ViewRegistration implements Serializable {
                     + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
                     + "\n\n Onsite Information: "
                     + "\n\n\n Site Address: "
+                    + "\n\n\n Training Site: " + this.getRequestor().getRegistration().getTrainingSite()
                     + "\n\n Site Street1: " + this.getRequestor().getRegistration().getSiteAddress().getStreet1()
                     + "\n\n Site Street2: " + this.getRequestor().getRegistration().getSiteAddress().getStreet2()
                     + "\n\n Site City: " + this.getRequestor().getRegistration().getSiteAddress().getCity()

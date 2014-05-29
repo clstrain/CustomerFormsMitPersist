@@ -8,6 +8,7 @@ package com.aperea.clscustomerforms;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.ListDataModel;
@@ -28,7 +29,8 @@ public class ViewAdminRegistration extends ListDataModel<Requestor> implements S
 
     private RegistrationDAO registrationDAO = new RegistrationDAO();
 
-    public ViewAdminRegistration() {
+    @PostConstruct
+    public void init() {
         requestor = new Requestor();
         requestors = new ArrayList<>();
         requestors = registrationDAO.getAll();

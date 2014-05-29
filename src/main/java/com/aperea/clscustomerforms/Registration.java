@@ -38,7 +38,7 @@ public class Registration implements Serializable {
     @ManyToMany(cascade=CascadeType.ALL)
     private List<Student> students;
     
-    private boolean isTrainingSite;
+    private String trainingSite;
     
     private String cienaRelation;
     
@@ -128,13 +128,14 @@ public class Registration implements Serializable {
         this.students = students;
     }
 
-    public boolean isIsTrainingSite() {
-        return isTrainingSite;
+    public String getTrainingSite() {
+        return trainingSite;
     }
 
-    public void setIsTrainingSite(boolean isTrainingSite) {
-        this.isTrainingSite = isTrainingSite;
+    public void setTrainingSite(String trainingSite) {
+        this.trainingSite = trainingSite;
     }
+    
 
     public String getCienaRelation() {
         return cienaRelation;

@@ -13,6 +13,8 @@
 
         <link rel="stylesheet" href="style.css" type="text/css"
               media="screen, projection" />
+
+
     </h:head> 
 
     <h:body>
@@ -44,7 +46,7 @@
 
 
 
-                        <p:tab id="personal" title="Primary Information">
+                        <p:tab id="personal" title="Primary Information" >
 
                             <h3>Please fill out the form completely and click the next button at the bottom of the page</h3>
 
@@ -153,7 +155,6 @@
                                                 <p:ajax event="blur" update="companyStateMsg" />
                                             </p:inputText>
                                             <p:message id="companyStateMsg" for="companyState"  />
-
 
                                         </p:column>
                                     </p:row>
@@ -281,10 +282,9 @@
                                                 <p:ajax event="blur" update="siteStateMsg" />
                                             </p:inputText>
                                             <p:message id="siteStateMsg" for="siteState"  />
-
-
                                         </p:column>
                                     </p:row>
+
                                     <p:row>
                                         <p:column>
                                             <h:outputLabel for="siteZIP" value="Zip Code " />
@@ -302,7 +302,6 @@
                                     </p:row>
                                 </p:panelGrid>
 
-
                                 <p:fieldset legend="Shipping Address (if different than Site Address)" toggleable="true" toggleSpeed="500" collapsed="true">  
 
                                     <p:panelGrid columns="2">
@@ -315,7 +314,6 @@
                                                 </p:inputText>
                                                 <p:message id="shippingAddressStreet1Msg" for="shippingAddressStreet1"  />
 
-
                                                 <h:outputLabel for="shippingAddressStreet2" value="Street 2: " />
                                                 <p:inputText id="shippingAddressStreet2" value="#{viewRegistration.requestor.registration.shippingAddress.street2}" required="false">
                                                     <p:ajax event="blur" update="shippingAddressStreet2Msg" />
@@ -325,14 +323,12 @@
                                             </p:column>                                        
                                         </p:row>
                                         <p:row>
-                                            <p:column >
-
+                                            <p:column>
                                                 <h:outputLabel for="shippingCity" value="City: " />
                                                 <p:inputText id="shippingCity" value="#{viewRegistration.requestor.registration.shippingAddress.city}" required="false">
                                                     <p:ajax event="blur" update="shippingCityMsg" />
                                                 </p:inputText>
-                                                <p:message id="shippingCityMsg" for="shippingCity"  />
-
+                                                <p:message id="shippingCityMsg" for="shippingCity" />
                                             </p:column>
 
                                             <p:column>
@@ -341,7 +337,6 @@
                                                     <p:ajax event="blur" update="shippingStateMsg" />
                                                 </p:inputText>
                                                 <p:message id="shippingStateMsg" for="shippingState"  />
-
 
                                             </p:column>
                                         </p:row>
@@ -395,7 +390,6 @@
                                     </p:inputText>
                                     <p:message id="pocPhoneNumberMsg" for="pocPhoneNumber"  />
                                 </p:panelGrid>
-
 
                                 <p:panelGrid columns="2" >  
 
@@ -610,8 +604,8 @@
 
                                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
-                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                    <p>Please wait...</p><p:graphicImage value="./gfx/ajax-loader.gif" />
+                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+                                    <p>Please wait...</p><p style="margin-left:auto;margin-right:auto;"><p:graphicImage value="./gfx/ajax-loader.gif"  /></p>
                                 </p:dialog>
 
                             </p:panel>

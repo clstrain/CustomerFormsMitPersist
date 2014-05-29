@@ -24,13 +24,13 @@ public abstract class Registration_ {
 	public static volatile SingularAttribute<Registration, Long> id;
 	public static volatile SingularAttribute<Registration, Date> registrationDate;
 	public static volatile SingularAttribute<Registration, String> purchaseOrderNumber;
+	public static volatile SingularAttribute<Registration, String> trainingSite;
 	public static volatile SingularAttribute<Registration, String> pocEmail;
 	public static volatile SingularAttribute<Registration, Boolean> hasWhiteBoards;
 	public static volatile SingularAttribute<Registration, String> courseType;
 	public static volatile SingularAttribute<Registration, String> additionalNotes;
 	public static volatile SingularAttribute<Registration, Boolean> hasLaptops;
 	public static volatile SingularAttribute<Registration, Address> shippingAddress;
-	public static volatile SingularAttribute<Registration, Boolean> isTrainingSite;
 	public static volatile SingularAttribute<Registration, String> courseNumber;
 	public static volatile SingularAttribute<Registration, String> pocFirstName;
 	public static volatile SingularAttribute<Registration, String> courseName;

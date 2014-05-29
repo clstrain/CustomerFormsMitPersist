@@ -178,9 +178,9 @@
 
 
                         <p:panelGrid columns="2" > 
-                            <h:outputText value="Ciena Training Site: " />  
-                            <h:outputText value="Yes" rendered="#{viewAdminRegistration.requestor.registration.isTrainingSite}"/>  
-                            <h:outputText value="No" rendered="#{not viewAdminRegistration.requestor.registration.isTrainingSite}"/>
+                            <h:outputText value="Training Site: " />  
+                                    <h:outputText id="trainingSite" value="#{viewAdminRegistration.requestor.registration.trainingSite}"  >
+                                    </h:outputText>
                         </p:panelGrid> 
 <!--
 

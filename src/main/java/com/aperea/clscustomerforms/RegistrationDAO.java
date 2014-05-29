@@ -17,19 +17,18 @@ import org.hibernate.criterion.Example;
  */
 public class RegistrationDAO implements Serializable {
 
-    
-    public Requestor searchByID(Long id){
+    public Requestor searchByID(Long id) {
         Requestor returnRequestor;
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         session.beginTransaction();
 
-        returnRequestor=(Requestor) session.get(Requestor.class, id);
+        returnRequestor = (Requestor) session.get(Requestor.class, id);
         session.getTransaction().commit();
-        
+
         return returnRequestor;
     }
-    
+
     public void Add(Requestor requestor) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -37,7 +36,6 @@ public class RegistrationDAO implements Serializable {
 
         session.save(requestor);
         session.getTransaction().commit();
-
     }
 
     public List<Requestor> getAll() {
@@ -45,22 +43,19 @@ public class RegistrationDAO implements Serializable {
         Criteria crit = session.createCriteria(Requestor.class);
         session.beginTransaction();
         session.getTransaction().commit();
-        
+
         return crit.list();
     }
 
     public List<Student> getStudents(Requestor requestor) {
-Requestor returnRequestor;
+        Requestor returnRequestor;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
-        
-        Criteria crit = session.createCriteria(Student.class)
-                ;
+
+        Criteria crit = session.createCriteria(Student.class);
         session.beginTransaction();
         session.getTransaction().commit();
-        
-        return crit.list();    }
 
-    
+        return crit.list();
+    }
 
 }
