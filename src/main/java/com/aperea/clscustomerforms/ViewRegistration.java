@@ -57,8 +57,7 @@ public class ViewRegistration implements Serializable {
        
         trainingSiteSelectItems = new ArrayList<>();
         trainingSiteSelectItems.add(new SelectItem("Ciena Site"));
-                trainingSiteSelectItems.add(new SelectItem("Customer Site"));
-
+        trainingSiteSelectItems.add(new SelectItem("Customer Site"));
     }
 
     public void submit() {
@@ -168,7 +167,7 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
             // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("aperea@ciena.com"));
+                    InternetAddress.parse("Training_approval@ciena.com"));
             message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
              message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"

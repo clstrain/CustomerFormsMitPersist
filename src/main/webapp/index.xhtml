@@ -374,15 +374,21 @@
                                     </p:inputText>
                                     <p:message id="pocLastNameMsg" for="pocLastName"  />
                                 </p:panelGrid>
-
+                                
                                 <p:panelGrid columns="2" >
-                                    <h:outputLabel for="pocEmail" value="POC Email Address: " />
-                                    <p:inputText id="pocEmail" value="#{viewRegistration.requestor.registration.pocEmail}" required="false">
-                                        <p:ajax event="blur" update="pocEmailMsg" />
-                                    </p:inputText>
-                                    <p:message id="pocEmailMsg" for="pocEmail"  />
-                                </p:panelGrid>
+                                            <h:outputLabel for="pocEmail" value="POC Email: "/>
+                                            <p:inputText id="pocEmail" required="false" label="Email Address" 
+                                                         validatorMessage= "Invalid email format."
+                                                         value="#{viewRegistration.requestor.registration.pocEmail}">
 
+                                                <f:validateRegex
+                                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+                                            </p:inputText>
+                                            <p:watermark for="pocEmail" value="name@company.com" />
+                                    <p:message id="pocEmailMsg" for="pocEmail"  />
+                                </p:panelGrid>                                
+                                
                                 <p:panelGrid columns="2" >
                                     <h:outputLabel for="pocPhoneNumber" value="POC Phone Number: " />
                                     <p:inputText id="pocPhoneNumber" value="#{viewRegistration.requestor.registration.pocPhoneNumber}" required="false">
@@ -499,7 +505,10 @@
 
                                 <f:facet name="footer">
                                     <p:commandButton value="Add Student"  
-                                                     icon="ui-icon-circle-plus"   oncomplete="PF('addStudent').show()" />
+                                                     icon="ui-icon-circle-plus" oncomplete="PF('addStudent').show()" />
+                                    
+                                    <p:commandButton value="Blank row"  
+                                                     icon="ui-icon-carat-1-se" action="#{viewRegistration.addStudent()}" update="@form"  />
                                 </f:facet>
 
                             </p:dataTable>  
