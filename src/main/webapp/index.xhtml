@@ -99,7 +99,6 @@
                                     </p:row>
                                 </p:panelGrid>
 
-
                                 <p:panelGrid>
 
                                     <p:row>
@@ -176,7 +175,7 @@
                                 </p:panelGrid>
 
                                 <p:outputLabel for="trainingSite" value="Training Site: " />
-                                <p:selectOneMenu id="trainingSite" value="#{viewRegistration.requestor.registration.trainingSite}">
+                                <p:selectOneMenu id="trainingSite"  required="true" requiredMessage="Please select a training site." value="#{viewRegistration.requestor.registration.trainingSite}">
                                     <f:selectItem itemLabel="Select One" itemValue="" />
                                     <f:selectItems value="#{viewRegistration.trainingSiteSelectItems}" />
                                 </p:selectOneMenu>
