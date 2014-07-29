@@ -44,6 +44,7 @@ public class ViewRegistration implements Serializable {
     private RegistrationDAO registrationDAO = new RegistrationDAO();
     
     private List<SelectItem>trainingSiteSelectItems;
+    
 
     @PostConstruct
     public void init() {
@@ -68,9 +69,12 @@ public class ViewRegistration implements Serializable {
     }
 
     public void addStudent() {
+        
+        if (this.requestor.getRegistration().getStudents().size()<16){
         requestor.getRegistration().getStudents().add(this.newStudent);
         
-        this.newStudent = new Student();
+        this.newStudent = new Student();        
+        }
     }
 
     public Requestor getRequestor() {
@@ -103,6 +107,9 @@ public class ViewRegistration implements Serializable {
     public void setTrainingSiteSelectItems(List<SelectItem> trainingSiteSelectItems) {
         this.trainingSiteSelectItems = trainingSiteSelectItems;
     }
+
+  
+    
        
     //wizard stuff
     private boolean skip;
@@ -165,8 +172,9 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
             // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("Training_approval@ciena.com"));
-            message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
+                   // InternetAddress.parse("Training_approval@ciena.com"));  
+                     InternetAddress.parse("aleoperea@yahoo.com"));
+            message.setSubject("Exclusive Training Class Request Acknowledgement");
              message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
                     + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
@@ -209,7 +217,7 @@ public class ViewRegistration implements Serializable {
                     + "\n\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
                     + "\n\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
                     + "\n\n\n Equipment Information: "
-                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
+                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector()).replaceAll("True", "Yes").replaceAll("False", "No")
                     + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
                     + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
                     + "\n\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
