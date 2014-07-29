@@ -172,8 +172,8 @@ public class ViewRegistration implements Serializable {
             Message message = new MimeMessage(session);
             // message.setFrom(new InternetAddress("techtrng.course.reg@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                   // InternetAddress.parse("Training_approval@ciena.com"));  
-                     InternetAddress.parse("aleoperea@yahoo.com"));
+                    InternetAddress.parse("Training_approval@ciena.com"));  
+                     //InternetAddress.parse("aleoperea@yahoo.com"));
             message.setSubject("Exclusive Training Class Request Acknowledgement");
              message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
@@ -193,7 +193,7 @@ public class ViewRegistration implements Serializable {
                     + "\n\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
                     + "\n\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
                     + "\n\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
-                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits()).replaceAll("true", "Yes").replaceAll("false", "No")
                     + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
                     + "\n\n Onsite Information: "
                     + "\n\n\n Site Address: "
@@ -217,9 +217,9 @@ public class ViewRegistration implements Serializable {
                     + "\n\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
                     + "\n\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
                     + "\n\n\n Equipment Information: "
-                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector()).replaceAll("True", "Yes").replaceAll("False", "No")
-                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
-                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector()).replaceAll("true", "Yes").replaceAll("false", "No")
+                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards()).replaceAll("true", "Yes").replaceAll("false", "No")
+                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops()).replaceAll("true", "Yes").replaceAll("false", "No")
                     + "\n\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
                     + "\n\n\n Student List: " + studentListString()
                     + "\n\n End");
@@ -270,7 +270,7 @@ public class ViewRegistration implements Serializable {
             message.setFrom(new InternetAddress("training_approval@ciena.com", "Ciena Learning Solutions"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(this.getRequestor().getEmail()));
-            message.setSubject(this.getRequestor().getRegistration().getCourseName() + " Confirmation Course Registration on " + this.getRequestor().getRegistration().getCourseDate());
+            message.setSubject("Exclusive Training Class Request Acknowledgement");
             message.setText("This is an automated email. Please note that you are not yet officially registered with training until final approval by Ciena."
                     + "\n\n Ciena Course Dedicated Registration information follows:"
                     + "\n\n Request Date: " + this.getRequestor().getRegistration().getRegistrationDate()
@@ -289,7 +289,7 @@ public class ViewRegistration implements Serializable {
                     + "\n\n Course Name: " + this.getRequestor().getRegistration().getCourseName()
                     + "\n\n Course Date: " + this.getRequestor().getRegistration().getCourseDate()
                     + "\n\n PO Number: " + this.getRequestor().getRegistration().getPurchaseOrderNumber()
-                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits())
+                    + "\n\n Using Training Credits: " + String.valueOf(this.getRequestor().getRegistration().isIsTrainingCredits()).replaceAll("true", "Yes").replaceAll("false", "No")
                     + "\n\n Non-Rev Number: " + this.getRequestor().getRegistration().getNonRevNumber()
                     + "\n\n Onsite Information: "
                     + "\n\n\n Site Address: "
@@ -313,9 +313,9 @@ public class ViewRegistration implements Serializable {
                     + "\n\n POC Email Address: " + this.getRequestor().getRegistration().getPocEmail()
                     + "\n\n POC Phone Number: " + this.getRequestor().getRegistration().getPocPhoneNumber()
                     + "\n\n\n Equipment Information: "
-                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector())
-                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards())
-                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops())
+                    + "\n\n Projector: " + String.valueOf(this.getRequestor().getRegistration().isHasProjector()).replaceAll("true", "Yes").replaceAll("false", "No")
+                    + "\n\n Whiteboards: " + String.valueOf(this.getRequestor().getRegistration().isHasWhiteBoards()).replaceAll("true", "Yes").replaceAll("false", "No")
+                    + "\n\n Laptops with Admin for IP: " + String.valueOf(this.getRequestor().getRegistration().isHasLaptops()).replaceAll("true", "Yes").replaceAll("false", "No")
                     + "\n\n Additional Notes: " + this.getRequestor().getRegistration().getAdditionalNotes()
                     + "\n\n\n Student List: " + studentListString()
                     + "\n\n End");
